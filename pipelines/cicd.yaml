@@ -1,0 +1,46 @@
+trigger:
+- develop
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: |
+    git ls-files "notebooks/*" | xargs -I '{}' cp --parents -r '{}' $(Build.BinariesDirectory)
+  displayName: 'Get all notebooks'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.BinariesDirectory)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    ArtifactName: 'DatabricksBuild'
+
+- script: pip install databricks-cli
+  displayName: 'Install databricks-cli'
+
+- task: PythonScript@0
+  inputs:
+    scriptSource: 'inline'
+    script: |
+      import databricks_cli
+      import argparse
+      from databricks_cli.sdk import ApiClient
+      from databricks_cli.workspace.api import WorkspaceApi
+
+      parser = argparse.ArgumentParser()
+      parser.add_argument("--host", type=str)
+      parser.add_argument("--token", type=str)
+      args = parser.parse_args()
+
+      client = ApiClient(host=args.host, token=args.token)
+      workspace = WorkspaceApi(client)
+      workspace.import_workspace_dir(
+          source_path="notebooks", target_path="/", overwrite=True, exclude_hidden_files=True
+      )
+    arguments: --host $(HOST) --token $(TOKEN)
