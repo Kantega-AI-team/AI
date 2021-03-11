@@ -13,14 +13,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import xgboost as xgb
-from sklearn.metrics import f1_score, recall_score
-
 import shap
-
-
+import xgboost as xgb
 from modAL.models import ActiveLearner
 from modAL.uncertainty import uncertainty_sampling
+from sklearn.metrics import f1_score, recall_score
 
 # COMMAND ----------
 
