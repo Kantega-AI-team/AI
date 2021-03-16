@@ -56,7 +56,7 @@ def mlflow_xgb(data_path, max_depth):
         X_train, X_test = X.loc[(X["time"] <= 34)], X.loc[(X["time"] > 34)]
         X_train = X_train.drop(columns=["time"])
         X_test = X_test.drop(columns=["time"])
-        y_train, y_test = y.loc[(X["time"] <= 34)], y.loc[(X["time"] > 34)]
+        y_train, y_test = y.loc[(y["time"] <= 34)], y.loc[(y["time"] > 34)]
         y_train = y_train.drop(columns=["time"])
         y_train = y_train.values.ravel().astype(int)
         y_test = y_test.drop(columns=["time"])
