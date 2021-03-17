@@ -26,7 +26,7 @@ This allows you to work on the content locally, and lated submit the changes to 
 All repository changes should be done within a separate branch. Your branch can be merging into the **development branch** by going through a review and approved pull request.
 Instructions for how to create a branch and set correct naming is found [here](/docs/branching.md).
 
-Before the merging you should make sure that the code is formatted properly (using **black** and **isort**) and pushed to both the Git branch and the Databricks workspace (using **dual push**). See instructions and command examples below:
+Before the merging you should make sure that the code is formatted properly (using **black** and **isort**). See instructions and command examples below:
 
 ### Black
 
@@ -52,7 +52,3 @@ cat << EOF >> ~/.bash_profile
 export PATH="\$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 EOF
 ```
-
-### Dual push
-
-Run [dual push](/docs/dualpush.md) to commit and push your code both to Git and the Databricks workspace.

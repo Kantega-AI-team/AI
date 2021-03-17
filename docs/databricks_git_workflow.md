@@ -44,7 +44,9 @@ Ensure you are working on your newly created branch, and add comprehensible comm
 
 ### Create new notebook on Databricks
 
-To create a new notebook in Databricks, checkout your newly created branch under repos, and work from there. Push your changes regularly with good commit messages.
+To create a new notebook in Databricks, checkout your newly created branch under repos, and work from there.
+
+Keep in mind that the branch is not automatically pushed to remote. To push your code, click the repository button, which will prompt all stagedchanes. Enter good commit message, before pressing 'commit/push'.
 
 ## Switching between environments
 
