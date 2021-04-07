@@ -33,10 +33,10 @@
 
 # COMMAND ----------
 
+# import required libraries
 import dgl
 import networkx as nx
 import pandas as pd
-# import required libraries
 import torch
 import torch as th
 from dgl.data.utils import save_graphs
@@ -47,13 +47,19 @@ src = th.tensor([0, 2, 3, 2, 3, 1, 4])
 dst = th.tensor([1, 1, 2, 3, 0, 4, 1])
 
 # create the graph
-graph_1 = dgl.graph((src, dst))
+dgl_graph = dgl.graph((src, dst))
 
 # to view the edges of the graph run:
-# graph_1.edges()
+# dgl_graph.edges()
+
+# there are 7 edges in total
+# len(dgl_graph.edges()[1])
 
 # to view the nodes of the graph run:
-# graph_1.nodes()
+# dgl_graph.nodes()
+
+# there are 5 nodes in total
+len(dgl_graph.nodes())
 
 
 # COMMAND ----------
@@ -61,7 +67,7 @@ graph_1 = dgl.graph((src, dst))
 # MAGIC %md
 # MAGIC
 # MAGIC ## Graph visualization
-# MAGIC For plotting the graph we need to convert it to a _networkx_ graph using the homonym library
+# MAGIC For plotting the graph we need to convert it to a _networkx_ graph using the _networkx_ library
 
 # COMMAND ----------
 
@@ -75,8 +81,8 @@ def plot_the_graph(dgl_graph):
     nx.draw(nx_dgl_graph, pos, with_labels=True)  # draw the graph
 
 
-# plot graph_1
-plot_the_graph(graph_1)
+# plot dgl_graph
+plot_the_graph(dgl_graph)
 
 
 # COMMAND ----------
@@ -96,22 +102,16 @@ plot_the_graph(graph_1)
 
 # COMMAND ----------
 
-# make graph_1 undirected
-graph_1_un = dgl.to_bidirected(graph_1)
+# make dgl_graph undirected
+dgl_graph_un = dgl.to_bidirected(dgl_graph)
 
-graph_1_un.edges()  # more edges than before!
+len(dgl_graph_un.edges()[1])  # more edges than before!
 
-graph_1_un.nodes()  #  same nodes than before
+# dgl_graph_un.nodes()  #same nodes than before
 
 # let´s plot it
 
-nx_graph_1_un = graph_1_un.to_networkx()
-
-# We need to use a layout. I have no idea of the possbile choices so I copy & paste (Kamada-Kawaii layout usually looks pretty for arbitrary graphs)
-pos = nx.kamada_kawai_layout(nx_graph_1_un)
-
-# drae the graph
-nx.draw(nx_graph_1_un, pos, with_labels=True)
+# plot_the_graph(dgl_graph_un)
 
 
 # COMMAND ----------
@@ -136,26 +136,17 @@ src = th.tensor([0, 2, 3, 2, 3, 1, 4])
 dst = th.tensor([1, 1, 2, 3, 0, 4, 1])
 
 # with num_nodes = 7 we customize the number nodes in the graph. The nodes 5 and 6 will not be the "src" or "dst" of any edges (as specified in row 5 and 6)
-graph_1_plus = dgl.graph((src, dst), num_nodes=7)
+dgl_graph_extended = dgl.graph((src, dst), num_nodes=7)
 
 # to view the edges of the graph run:
-# graph_1_plus.edges()
+# dgl_graph_extended.edges()
 
 # to view the nodes of the graph run:
-# graph_1_plus.nodes()
+# dgl_graph_extended.nodes()
 
-# COMMAND ----------
+# let´s plot the graph
 
-# for plotting the graph we need to convert the "dgl" graph in a "networkx" graph
-
-nx_graph_1_plus = graph_1_plus.to_networkx()
-
-# We need to use a layout. I have no idea of the possbile choices so I copy & paste (Kamada-Kawaii layout usually looks pretty for arbitrary graphs)
-
-pos = nx.kamada_kawai_layout(nx_graph_1_plus)
-
-# draw the graph
-nx.draw(nx_graph_1_plus, pos, with_labels=True)
+plot_the_graph(dgl_graph_extended)
 
 # COMMAND ----------
 
@@ -166,20 +157,11 @@ nx.draw(nx_graph_1_plus, pos, with_labels=True)
 
 # COMMAND ----------
 
-# add 2 edges to graph_1: 5-->4 and 6-->4
+# add 2 edges to graph_1: 5-->0 and 6-->4
 
-graph_1.add_edges(th.tensor([5, 6]), th.tensor([4, 4]))
+dgl_graph_extended.add_edges(th.tensor([5, 6]), th.tensor([0, 4]))
 
-# for plotting the graph we need to convert the "dgl" graph in a "networkx" graph
-
-nx_graph_1 = graph_1.to_networkx()
-
-# We need to use a layout. I have no idea of the possbile choices so I copy & paste (Kamada-Kawaii layout usually looks pretty for arbitrary graphs)
-
-pos = nx.kamada_kawai_layout(nx_graph_1)
-
-# draw the graph
-nx.draw(nx_graph_1, pos, with_labels=True)
+plot_the_graph(dgl_graph_extended)
 
 
 # COMMAND ----------
@@ -189,7 +171,7 @@ nx.draw(nx_graph_1, pos, with_labels=True)
 # MAGIC ## Node and edge Features
 # MAGIC Now, we have an idea of the structure of a graph in terms of nodes and edges. Both nodes an edges can have attached features, describing useful characteristics of the entitiies unnder study (the nodes) and their relations (the edges). For example, when considering social media data it is  natural to assume age and citizenships as features attached to each node (the users) and the presence of friendship and/or the number of years since two users are friends as features attached to the edges. We now briefly describe how to attach node and edge features to a graph.
 # MAGIC
-# MAGIC Starting woth _graph_1_ we attacch a 1-dimensinal feature to the nodes and a 2-dimensional feature to the edges. In order to append features we must use torch tensors, which are basically vectors. The node features are stored inside the graph under the _ndata_ method while the edge features are stored under _edata_. All the the features must be numeric.
+# MAGIC Starting with _dgl_graph_ we attacch a 1-dimensinal feature to the nodes and a 2-dimensional feature to the edges. In order to append features we must use torch tensors, which are basically vectors. The node features are stored inside the graph under the _ndata_ method while the edge features are stored under _edata_. All the the features must be numeric.
 
 # COMMAND ----------
 
@@ -199,13 +181,13 @@ src = th.tensor([0, 2, 3, 2, 3, 1, 4])
 dst = th.tensor([1, 1, 2, 3, 0, 4, 1])
 
 # create the graph
-graph_1 = dgl.graph((src, dst))
+dgl_graph = dgl.graph((src, dst))
 
 # append the 1-dimensional node feature( a number for each node) and call it "h"
-graph_1.ndata["h"] = th.tensor([[5.0], [10.0], [15.0], [20.0], [25.0]])
+dgl_graph.ndata["h"] = th.tensor([[5.0], [10.0], [15.0], [20.0], [25.0]])
 
 # append the 2-dimensional edge feature( a 2-dim vector for each edge) and call it "e"
-graph_1.edata["e"] = th.tensor(
+dgl_graph.edata["e"] = th.tensor(
     [
         [3.0, 5.0],
         [4.0, 6.0],
@@ -218,7 +200,7 @@ graph_1.edata["e"] = th.tensor(
 )
 
 # check the structure of the graph and the features
-graph_1
+dgl_graph
 
 
 # COMMAND ----------
@@ -237,12 +219,41 @@ nodes_original = spark.read.load("/mnt/public/clean/fincen-graph/vertices").toPa
 
 # clean dataset containing the edges of the graph (src & dst columns) and the related features ("amount_transactions", "number_transactions")
 edges_original = spark.read.load("/mnt/public/clean/fincen-graph/edges").toPandas()
+# the dataset is directed; make it undirected
+
+edges_data2 = edges_original.loc[
+    :, ["dst", "src", "amount_transactions", "number_transactions"]
+]
+
+# switch column names sr_ <--> dst
+edges_data2.columns = ["src", "dst", "amount_transactions", "number_transactions"]
+
+# append df2 in df
+edges_data = edges_original.append(edges_data2, ignore_index=True)
+
+# add a column counting how many time each row is observed in the dataset
+edges_data["count"] = edges_data.groupby(["src", "dst"])["src"].transform("size")
+
+# select only row observed once (count==1)
+edge1 = edges_data.loc[edges_data["count"] == 1]
+
+# select only rows observed twice (count == 2) -->
+edge2 = edges_data.loc[edges_data["count"] == 2]
+
+edge2 = edge2.groupby(["src", "dst"]).sum().reset_index()
+
+# create final edge dataset by appending edge1 and edge2
+edges_data = edge1.append(edge2).drop("count", axis=1).reset_index(drop=True)
+
+
+# CREATE THE GRAPH
+
 
 # vector with starting point of each edge
-edges_src = torch.from_numpy(edges_original["src"].to_numpy())
+edges_src = torch.from_numpy(edges_data["src"].to_numpy())
 
 # vector with ending point of each edge
-edges_dst = torch.from_numpy(edges_original["dst"].to_numpy())
+edges_dst = torch.from_numpy(edges_data["dst"].to_numpy())
 
 
 # create  the graph
@@ -252,8 +263,8 @@ graph_fincen = dgl.graph((edges_src, edges_dst), num_nodes=nodes_original.shape[
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC
-# MAGIC Prior to be included in the graph, the node feature _country_ is transformed as dummy. Each country is coded as a unique vector of lengh _ # of unique countries observed in the data_  with all elements equal to zero but in one (where the value is actually 1)
+# MAGIC ### Feature manipulation
+# MAGIC Prior to be included in the graph, the node feature _country_ is transformed as dummy. Each country is coded as a unique vector of lengh _ # of unique countries observed in the data_  with all elements equal to zero but in one (where the value is actually 1). For the two edge features we apply the standardization (x-x.mean)/x.sd
 
 # COMMAND ----------
 
@@ -270,11 +281,43 @@ edge_features = torch.from_numpy(
     edges_original[["amount_transactions", "number_transactions"]].to_numpy()
 )
 
+# standardize the edge features
+
+edges_data[["amount_transactions", "number_transactions"]] = (
+    edges_data[["amount_transactions", "number_transactions"]]
+    - edges_data[["amount_transactions", "number_transactions"]].mean()
+) / edges_data[["amount_transactions", "number_transactions"]].std()
+
+edges_data
+
+
+# COMMAND ----------
+
+### GRAPH GENERATION
+
+# vector with starting point of each edge
+edges_src = torch.from_numpy(edges_data["src"].to_numpy())
+
+# vector with ending point of each edge
+edges_dst = torch.from_numpy(edges_data["dst"].to_numpy())
+
+
+# create  the graph
+graph_fincen = dgl.graph((edges_src, edges_dst), num_nodes=nodes_original.shape[0])
+
+
+# create edge features
+edge_features = torch.from_numpy(
+    edges_data[["amount_transactions", "number_transactions"]].to_numpy()
+)
+
 # attach the node feature to the graph dataset name the matrix "feat_nodes"
 graph_fincen.ndata["feat_nodes"] = node_features
 
 # attach the edge features to the graph dataset - name the matrix "feat_edges"
 graph_fincen.edata["feat_edges"] = edge_features
+
+graph_fincen
 
 
 # COMMAND ----------
