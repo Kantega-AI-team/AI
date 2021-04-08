@@ -127,6 +127,8 @@ Sophisticated machine learning does not provide much value if the data it is tra
 
 Modern enterprise data landscapes, like Delta Lakes, incorporates data from both internal and external sources. They also handle extensive scalability requirements, and a wide span of data structures.
 
+![delta_lake_logo](images/delta_lake_logos.png)
+
 Over a series of notebooks, we show how you can construct a Delta Lake in practice. We will take you from the steps of handling raw data to construct higher levels of quality and business value refinements. We will also show Delta Lakes support the ability to meet GRPR requirements for aonomymizing and deleting traces, and how you can do time travels to reach any past version of the data.
 
 [**Notebooks - Delta Lake architecture**](delta_lake.md)
