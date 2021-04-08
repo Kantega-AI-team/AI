@@ -30,14 +30,16 @@ Graph learning is one of the areas where machine learning has done most progress
 
 ### Introduction to Graph Structures
 
-A graph 𝐺=(𝑉,𝐸) is a structure used to represent entities and their relations. It consists of two sets – the set of nodes 𝑉 and the set of edges 𝐸. An edge (𝑢,𝑣) ∈ 𝐸  connecting a pair of nodes 𝑢 and 𝑣 indicates that there is a relation between them. 
+A graph 𝐺=(𝑉,𝐸) is a structure used to represent entities and their relations. It consists of two sets – the set of nodes 𝑉 and the set of edges 𝐸. An edge (𝑢,𝑣) ∈ 𝐸  connecting a pair of nodes 𝑢 and 𝑣 indicates that there is a relation between them.
 
-The relation can either be undirected, capturing symmetric relations between nodes (e.g. the friendship status in Facebook) or directed, capturing asymmetric relations (e.g. the follower system upon which Twitter is based). 
+The relation can either be undirected, capturing symmetric relations between nodes (e.g. the friendship status in Facebook) or directed, capturing asymmetric relations (e.g. the follower system upon which Twitter is based).
 In the notebook tutorial below we provide show how to create and manipulate a graph object in Python by mean of the library _DGL_. Furthermore, we show how to append information to nodes and edges; these so called _features_ play a central role in the learning process typical of the machine learning models.
 
-[**Notebook - Introduction to Graph Structures**](/notebooks/graph_models/demo_graph_structure.py)
-* Environment: Python, DGL
-* Dataset: FinCEN
+[**Notebook - Introduction to Graph Structures**](/notebooks/
+graph_models/demo_graph_structure.py)
+
+- Environment: Python, DGL
+- Dataset: FinCEN
 
 ### Graph Neural Networks (GraphSage)
 
@@ -102,6 +104,8 @@ In our notebook example, we use shiny apps to create an interactive visualizatio
 
 Active learning is a special case of machine learning in which a learning algorithm can interactively query a user (or some other information source) to label new data points with the desired outputs.
 
+![active_learning](images/active_learning.png)
+
 Our notebook example shows how Active Learning allows you to train a high quality classifier model with a reduction of labeled training samples of 90% (in comparison to random sampling).
 
 Active learning is very suitable for environments where machines and human experts work together as a team. The machines will improve their capabilities quickly and, over time, also adapt and detect new data patterns.
@@ -114,12 +118,18 @@ While they take care of the simpler cases, humans can spend their capacity on th
 
 ## Data and Machine Learning Platform
 
+Sophisticated machine learning does not provide much value if the data it is trained on is of low quality. Also, you need a robust platform to operationalize machine learning professionally over time. In this section, we will introduce quality assuring data architectures and operational machine learning platforms.
+
 ### Delta Lake
-<!---TODO: Short description and motivation-->
-<!---TODO: One md-file or notebook uniting the set of notebooks related to delta lake data flow-->
+
+Modern enterprise data landscapes, like Delta Lakes, incorporates data from both internal and external sources. They also handle extensive scalability requirements, and a wide span of data structures.
+
+Over a series of notebooks, we show how you can construct a Delta Lake in practice. We will take you from the steps of handling raw data to construct higher levels of quality and business value refinements. We will also show Delta Lakes support the ability to meet GRPR requirements for aonomymizing and deleting traces, and how you can do time travels to reach any past version of the data.
+
+[**Notebooks - Delta Lake architecture**](delta_lake.md)
 
 - Environment: Python, Delta Lake
-- Dataset: ?
+- Dataset: Generated
 
 ### MLFlow
 <!---TODO: Short description and motivation-->
