@@ -7,7 +7,7 @@ Overview:
 - [Kantega AI](#kantega-ai)
   - [Graph Learning](#graph-learning)
     - [Introduction to Graph Structures](#introduction-to-graph-structures)
-    - [Graph Neural Networks (GraphSage)](#graph-neural-networks-graphsage)
+    - [Graph Neural Networks (GraphSAGE)](#graph-neural-networks-graphsage)
       - [Node classification / regression](#node-classification--regression)
       - [Link Prediction](#link-prediction)
     - [Community Detection](#community-detection)
@@ -41,9 +41,14 @@ graph_models/demo_graph_structure.py)
 - Environment: Python, DGL
 - Dataset: FinCEN
 
-### Graph Neural Networks (GraphSage)
+### Graph Neural Networks (GraphSAGE)
 
-<!--TODO: Short description and motivation-->
+Graph Neural Networks (GNNs) are deep learning based methods that operates on graph domain. Due to its convincing performance and high interpretability, GNN has been a widely applied graph analysis method recently
+( <a href="https://arxiv.org/pdf/1812.08434.pdf" target="_top">ZHOU et al. 2018</a> ). GNNs combine node/edge feature information with the graph structure by recursively passing neural messages along edges of the input graph. 
+These powerful methods allow to build models for performing fundamental ML tasks such  as node/edge classification and regression, link prediction and community detection. We shall investigate further the GraphSAGE model, a GNN suitable in several scenarios.
+
+[**Notebook - Introduction to GraphSAGE**](/docs/theory_docs/graphsage_theory.md)
+
 
 #### Node classification / regression
 
@@ -64,7 +69,7 @@ tekst
 
 tekst
 
-![Node Classification](images/link_prediction.png)
+![Link prediction](images/link_prediction.png)
 
 ### Community Detection
 
