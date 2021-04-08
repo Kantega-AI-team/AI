@@ -43,12 +43,10 @@ graph_models/demo_graph_structure.py)
 
 ### Graph Neural Networks (GraphSAGE)
 
-Graph Neural Networks (GNNs) are deep learning based methods that operates on graph domain. Due to its convincing performance and high interpretability, GNN has been a widely applied graph analysis method recently
-( <a href="https://arxiv.org/pdf/1812.08434.pdf" target="_top">ZHOU et al. 2018</a> ). GNNs combine node/edge feature information with the graph structure by recursively passing neural messages along edges of the input graph. 
+Graph Neural Networks (GNNs) are deep learning based methods that operates on graph domain. Due to its convincing performance and high interpretability, GNN has been a widely applied graph analysis method recently ([ZHOU et al. 2018](https://arxiv.org/pdf/1812.08434.pdf) ). GNNs combine node/edge feature information with the graph structure by recursively passing neural messages along edges of the input graph.
 These powerful methods allow to build models for performing fundamental ML tasks such  as node/edge classification and regression, link prediction and community detection. We shall investigate further the GraphSAGE model, a GNN suitable in several scenarios.
 
 [**Notebook - Introduction to GraphSAGE**](/docs/theory_docs/graphsage_theory.md)
-
 
 #### Node classification / regression
 
