@@ -60,14 +60,19 @@ tekst
 
 - Environment: Python, DGL
 - Dataset: ?
-
+  
 #### Link Prediction
 
-<!--TODO: Short description and motivation-->
+Link prediction is used to predict the existence of a link between two nodes in a network. It can for instance be used to predict missing links due to incomplete data or, given a set of links at time _t_, it can be used to predict possible links at time _t + 1_. . Practical examples of link prediction can be “Songs you might like” in Spotify, “Friends you might know” in LinkedIn or recommender engines in online shops.
 
-tekst
+The notebook example below use Pytorch to predict the existence of edges in node pairs for the FinCEN Files dataset using Link prediction.
 
-![Link prediction](images/link_prediction.png)
+![link_prediction](images/link_prediction.png)
+
+[**Notebook - Link Prediction**](/notebooks/graph_models/demo_gnn_link_prediction.py)
+
+- Environment: Python
+- Dataset: [FinCEN Files](https://www.icij.org/investigations/fincen-files/explore-the-fincen-files-data/)
 
 ### Community Detection
 
