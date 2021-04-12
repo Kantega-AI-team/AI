@@ -46,6 +46,10 @@ graph_models/demo_graph_structure.py)
 Graph Neural Networks (GNNs) are deep learning based methods that operates on graph domain. Due to its convincing performance and high interpretability, GNN has been a widely applied graph analysis method recently ([ZHOU et al. 2018](https://arxiv.org/pdf/1812.08434.pdf) ). GNNs combine node/edge feature information with the graph structure by recursively passing neural messages along edges of the input graph.
 These powerful methods allow to build models for performing fundamental ML tasks such  as node/edge classification and regression, link prediction and community detection. We shall investigate further the GraphSAGE model, a GNN suitable in several scenarios.
 
+Relevant application areas
+
+- GraphSAGE is particularly useful in environments where be have both graph structured data and additional metadata about the nodes and / or the edges.
+
 [**Notebook - Introduction to GraphSAGE**](/docs/theory_docs/graphsage_theory.md)
 
 #### Node classification / regression
@@ -53,6 +57,11 @@ These powerful methods allow to build models for performing fundamental ML tasks
 <!--TODO: Short description and motivation-->
 
 tekst
+
+Relevant application areas
+
+- **Examples**: Fraud and churn prediction
+<!-- TODO: Do we have some good examples of node classification examples? -->
 
 ![Node Classification](images/node_classification.png)
 
@@ -65,9 +74,14 @@ tekst
 
 Link prediction is used to predict the existence of a link between two nodes in a network. It can for instance be used to predict missing links due to incomplete data or, given a set of links at time _t_, it can be used to predict possible links at time _t + 1_. . Practical examples of link prediction can be “Songs you might like” in Spotify, “Friends you might know” in LinkedIn or recommender engines in online shops.
 
-The notebook example below use Pytorch to predict the existence of edges in node pairs for the FinCEN Files dataset using Link prediction.
+Relevant application areas
+
+- Recommender systems are a typical usage case for link predication. Used to recommend ads, products or friends in social networks
+- **Examples**: Pinterest and Uber Eats are two well knows services applying GraphSAGE implementations and link prediction in productions and part of the recommender services.
 
 ![link_prediction](images/link_prediction.png)
+
+The notebook example below use Pytorch to predict the existence of edges in node pairs for the FinCEN Files dataset using Link prediction.
 
 [**Notebook - Link Prediction**](/notebooks/graph_models/demo_gnn_link_prediction.py)
 
@@ -79,9 +93,13 @@ The notebook example below use Pytorch to predict the existence of edges in node
 Community Detection is one of the fundamental problems in network analysis, where the goal is to find groups of nodes that are thightly related and more similar to each other than to the other nodes.
 There are several approached for detecting communities within a larger graph structure. While some techniques traverse graph relations, others do more traditional clustering in an embedding space.
 
-The notebook example below use Apache Spark to represent the FinCen Files dataset as a GraphX graph. Then, the Pagerank algorithm is used to score the significance and importance of each node (bank), before a label propagation algorithm is used to detect communities of highly connected banks.
+Relevant application areas
+
+- **Examples**: Anti money laundering (AML), Customer segmentation
 
 ![Community Detection](images/community_detection.png)
+
+The notebook example below use Apache Spark to represent the FinCen Files dataset as a GraphX graph. Then, the Pagerank algorithm is used to score the significance and importance of each node (bank), before a label propagation algorithm is used to detect communities of highly connected banks.
 
 [**Notebook - Community Detection**](/notebooks/graph_models/community_detection.py)
 
@@ -96,10 +114,14 @@ The notebook example below use Apache Spark to represent the FinCen Files datase
 
 Shiny is an R package that makes it easy to build interactive web apps straight from R. You can host standalone apps on a webpage or embed them in R Markdown documents or build dashboards.
 
-In our notebook example, we use shiny apps to create an interactive visualization where users can explore historical earth quakes.
+Relevant application areas
+
+- Can be used as a part of exploratory data analysis to understand the data at hand, and as a medium to communicate data findings with business level stakeholders.
 
 ![Shiny Apps](/docs/images/rshiny_logo.png =250x)
 ![Shiny Screenshots](/docs/images/shiny_example.png =250x)
+
+In our notebook example, we use shiny apps to create an interactive visualization where users can explore historical earth quakes.
 
 [**Notebook - Shiny Apps**](/notebooks/shiny/shiny_example.r)
 
@@ -111,6 +133,12 @@ In our notebook example, we use shiny apps to create an interactive visualizatio
 ### Active Learning
 
 Active learning is a special case of machine learning in which a learning algorithm can interactively query a user (or some other information source) to label new data points with the desired outputs.
+
+Relevant application areas
+
+- Active learning: Any data environment where large volumes of labelled training data preexists, and where labelling og data is a time consuming and costly process.
+- Also highly relevant in environments where the data is continuous and the machine learning models need to be adaptive and able understand new data patterns.
+- **Examples**: Credit scoring, image and text classification, Fraud and spam detection
 
 ![active_learning](images/active_learning.png)
 
@@ -132,6 +160,11 @@ Sophisticated machine learning does not provide much value if the data it is tra
 
 Modern enterprise data landscapes, like Delta Lakes, incorporates data from both internal and external sources. They also handle extensive scalability requirements, and a wide span of data structures.
 
+Relevant application areas
+
+- Any environment with large data volumes. Delta lakes are especially useful when we have a mix of various data structures and data arriving as a continuous stream.
+- **Examples**: Analysis of user interaction data,.. <!-- TODO: Mention one or two more super relevant application areas?? -->
+
 ![delta_lake_logo](images/delta_lake_logos.png)
 
 Over a series of notebooks, we show how you can construct a Delta Lake in practice. We will take you from the steps of handling raw data to construct higher levels of quality and business value refinements. We will also show Delta Lakes support the ability to meet GRPR requirements for aonomymizing and deleting traces, and how you can do time travels to reach any past version of the data.
@@ -143,7 +176,12 @@ Over a series of notebooks, we show how you can construct a Delta Lake in practi
 
 ### MLFlow
 <!---TODO: Short description and motivation-->
+Relevant application areas
+
+- Any environment where machine learning models should be operationalised and maintained professionally over time.
+
 <!---TODO: One md-file or notebook uniting the set of notebooks related to MLFlow-->
+Notebook -
 
 - Environment: MLFlow, PySpark
 - Dataset: ?
