@@ -31,28 +31,31 @@ fincen = spark.read.format("delta").load("/mnt/public/clean/fincen")
 
 # MAGIC %md
 # MAGIC ### Vertices manipulation
-# MAGIC Transforming the fincen data to create a vertices data frame by:
-# MAGIC 1. Selecting sender, sender_country and sender iso
-# MAGIC 2. Add column "id" with a concatination of the sender id and iso country
-# MAGIC 3. Rename country column
-# MAGIC 4. Drop unneccessary columns (sender and sender_iso)
-# MAGIC 5. Keep only unique and distinct rows
+# MAGIC Transforming the fincen data to create a vertices data frame.
+# MAGIC Two symmetric datasets are required: **senders** and **beneficiaries**.
+# MAGIC We highlight now the steps for creating the senders dataset:
+# MAGIC 1. Selecting _sender_ and _sender_country_
+# MAGIC 2. Rename _sender_ and _sender_country_ as _bank_ and _country_, respectively
+# MAGIC 3. Keep only unique and distinct rows
+# MAGIC
+# MAGIC The final **vertices** dataFrame will be made of
+# MAGIC - _bank_
+# MAGIC - _country_
+# MAGIC - _id_
 
 # COMMAND ----------
 
 
 senders = (
-    fincen.select("sender", "sender_country", "sender_iso")
+    fincen.select("sender", "sender_country")
     .withColumnRenamed("sender", "bank")
     .withColumnRenamed("sender_country", "country")
-    .drop("sender", "sender_iso")
     .dropDuplicates()
 )
 beneficiaries = (
-    fincen.select("beneficiary", "beneficiary_country", "beneficiary_iso")
+    fincen.select("beneficiary", "beneficiary_country")
     .withColumnRenamed("beneficiary", "bank")
     .withColumnRenamed("beneficiary_country", "country")
-    .drop("beneficiary", "beneficiary_iso")
     .dropDuplicates()
 )
 
@@ -63,6 +66,9 @@ vertices = (
     .dropDuplicates()
     .withColumn("id", monotonically_increasing_id())
 )
+
+# vertices.count()  1918 vertices:
+
 vertices.show()
 
 
@@ -71,14 +77,14 @@ vertices.show()
 # MAGIC %md
 # MAGIC
 # MAGIC ### Edge manipulation
-# MAGIC - Into order to run the GNN using features attached to the edges we need to first to link the edges to the nodes by using the same ID
-# MAGIC - The departing node will be called src while the destination node will be called dst.
+# MAGIC - In order to run the GNN using features attached to the edges we need first to link the edges to the nodes by using the same ID
+# MAGIC - The departing node will be called **src** while the destination node will be called **dst**.
 # MAGIC - Each node will be uniquely identified by the name of the bank and the county where the bank is located
-# MAGIC - We merge all the edge sharing the same src and dst. This  will aggregate all the different relations btw the same two banks, having the same direction (A-->B) og (B-->A)
+# MAGIC - We sum all the edges sharing the same src and dst. This  will aggregate all the different relations btw the same two banks, having the same direction (A-->B) og (B-->A)
 
 # COMMAND ----------
 
-# Create a edge dataframe from the basis of the fincen data. Create id values such that sources and destinations match ids in the vertices table.
+# Create an edge dataframe from the basis of the fincen data. Create id values such that sources and destinations match ids in the vertices table.
 edges = fincen.select(
     "sender",
     "sender_country",
@@ -115,6 +121,8 @@ edges = (
     .withColumnRenamed("sum(amount_transactions)", "amount_transactions")
     .withColumnRenamed("sum(number_transactions)", "number_transactions")
 )
+
+
 edges.show()
 
 # COMMAND ----------
