@@ -44,3 +44,28 @@ steps:
           source_path="notebooks", target_path="/", overwrite=True, exclude_hidden_files=True
       )
     arguments: --host $(HOST) --token $(TOKEN)
+
+- task: TerraformInstaller@0
+  displayName: Install Terraform
+  inputs:
+    terraformVersion: '0.14.8'
+
+- task: TerraformTaskV1@0
+  displayName: Terraform init
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    workingDirectory: 'terraform'
+    backendServiceArm: 'Subscription level service connection'
+    backendAzureRmResourceGroupName: 'rg-aitf-dev-we-001'
+    backendAzureRmStorageAccountName: 'dlsaitfdevwe001'
+    backendAzureRmContainerName: 'tfstate'
+    backendAzureRmKey: 'rg-ai-dev-we-001/dev.terraform.tfstate'
+
+- task: TerraformTaskV1@0
+  displayName: Terraform validate and apply
+  inputs:
+    provider: 'azurerm'
+    command: 'apply'
+    workingDirectory: 'terraform'
+    environmentServiceNameAzureRM: 'Subscription level service connection'

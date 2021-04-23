@@ -183,3 +183,10 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+
+# File setting secretsy
+*secrets.sh

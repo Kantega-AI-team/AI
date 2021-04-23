@@ -16,5 +16,16 @@ The following components have been manually created in Azure to run the code in 
 - Databricks workspace: [kantega-aml-dbw-dev](https://adb-4911850018174512.12.azuredatabricks.net)
 - Service principal: [kantega-aml-dbw-sp](https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/Overview/appId/289b8913-350b-4ce1-b7e1-d38b533e9b9e/isMSAApp/)
 
-# Applied AI Notebooks
+## Applied AI Notebooks
+
 You find an overview and introduction to all the [notebook examples here](/docs/notebook_overview.md)
+
+## Azure Resource Naming Convensions
+
+Resource names should be a concatication of the following elements:
+{ Resources type abbreviation }-{ use case }-{ environment }-{ azure region }-{ instance number }
+
+where the resource type abbreviation should follow: [](https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations)
+
+Example
+"dls-ai-dev-westeu-001"
