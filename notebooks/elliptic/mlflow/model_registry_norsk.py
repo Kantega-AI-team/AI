@@ -1,12 +1,12 @@
 # Databricks notebook source
 # MAGIC %md # MLflow Model Registry
-# MAGIC 
+# MAGIC
 # MAGIC Nøkkelelementer
 # MAGIC - Model
 # MAGIC - Registered model
 # MAGIC - Model version
 # MAGIC - Model stages
-# MAGIC 
+# MAGIC
 # MAGIC Vi går gjennom alle disse i denne demoen
 
 # COMMAND ----------
@@ -84,7 +84,7 @@ with mlflow.start_run() as run:  # Starter tracking
 # COMMAND ----------
 
 # MAGIC %md ## Registered model
-# MAGIC 
+# MAGIC
 # MAGIC Det finnes to måter for å registrere en modell på i Databricks. Den ene er et grafisk grensesnitt, og den andre er programmatisk via API, som er metoden vi bruker i denne demoen.
 
 # COMMAND ----------
@@ -132,7 +132,7 @@ client.set_registered_model_tag(mlflow_model_name, "dataset", "elliptic")
 # COMMAND ----------
 
 # MAGIC %md ## Model version
-# MAGIC 
+# MAGIC
 # MAGIC La oss nå lage en ny modell for dette datasettet, men med et helt ulikt bibliotek. Vi vil registrere denne nye modellen som en ny versjon til den eksisterende modellen, til tross for at de er bygget helt ulikt.
 
 # COMMAND ----------
@@ -209,7 +209,7 @@ client.update_model_version(
 # COMMAND ----------
 
 # MAGIC %md ##Model stages
-# MAGIC 
+# MAGIC
 # MAGIC Det finnes tre ulike model stages: Staging, Production, and Archived. Vi vil sette en modell i staging, og begynner med modellversjon 1.
 
 # COMMAND ----------
@@ -235,9 +235,9 @@ client.transition_model_version_stage(mlflow_model_name, version=1, stage="Produ
 # COMMAND ----------
 
 # MAGIC %md ##  Bruk og servering
-# MAGIC 
+# MAGIC
 # MAGIC Flott, modellene er satt i riktig stage og klar for bruk.
-# MAGIC 
+# MAGIC
 # MAGIC Hvordan gjør vi det?
 
 # COMMAND ----------

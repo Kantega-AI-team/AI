@@ -1,21 +1,21 @@
 # Databricks notebook source
 # MAGIC %md # MLflow Models concept example
-# MAGIC 
+# MAGIC
 # MAGIC MLflow models is a convenient way to package machine learning models to allow usage in a variety of downstream tools. It defines a "flavor" convention, that is understandable by different tools. We have actually already used this concept in the tracking demo, since the function `log_model` was used at some points. This example goes into more details about the core of the MLflow Models concept: **flavors**.
-# MAGIC 
+# MAGIC
 # MAGIC The basic setup of an MLFlow model is as follows
-# MAGIC 
+# MAGIC
 # MAGIC ```
 # MAGIC some_model/
 # MAGIC |-- MLmodel
 # MAGIC |-- model.pkl
 # MAGIC ```
-# MAGIC 
+# MAGIC
 # MAGIC and the `MLmodel` describes flavors, for example
-# MAGIC 
+# MAGIC
 # MAGIC ```
 # MAGIC time_created: 2018-05-25T17:28:53.35
-# MAGIC 
+# MAGIC
 # MAGIC flavors:
 # MAGIC   sklearn:
 # MAGIC     sklearn_version: 0.19.1
@@ -23,9 +23,9 @@
 # MAGIC   python_function:
 # MAGIC     loader_module: mlflow.sklearn
 # MAGIC ```
-# MAGIC 
+# MAGIC
 # MAGIC These flavors represents different ways to interact with the models. The built in flavors include
-# MAGIC 
+# MAGIC
 # MAGIC ```
 # MAGIC Python Function (python_function)
 # MAGIC R Function (crate)
@@ -44,8 +44,8 @@
 # MAGIC Fastai(fastai)
 # MAGIC Statsmodels (statsmodels)
 # MAGIC ```
-# MAGIC 
-# MAGIC but you can also add your own custom flavors, with custom classes. Any model built in python can be served using `python_function`, which we will also look into. 
+# MAGIC
+# MAGIC but you can also add your own custom flavors, with custom classes. Any model built in python can be served using `python_function`, which we will also look into.
 
 # COMMAND ----------
 
@@ -179,7 +179,7 @@ with mlflow.start_run(run_name="NN Model") as run:
 # COMMAND ----------
 
 # MAGIC %md ### Using a custom model with `pyfunc`
-# MAGIC 
+# MAGIC
 # MAGIC See the [docs](https://mlflow.org/docs/latest/python_api/mlflow.pyfunc.html#pyfunc-create-custom) for more on custom Pyfunc models
 
 # COMMAND ----------

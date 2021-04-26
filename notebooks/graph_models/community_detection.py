@@ -1,7 +1,7 @@
 # Databricks notebook source
 # MAGIC %md
 # MAGIC # Fincen - Detecting communities and major players
-# MAGIC 
+# MAGIC
 # MAGIC In this notebook we will use the pagerank algorithm to score and rank the banks that are most central in the overall flow of bank transfers.
 # MAGIC Further, we will use label propagation to identify subcomminities within the graph.
 
@@ -45,9 +45,9 @@ g = g.pageRank(resetProbability=0.15, tol=0.01)
 # MAGIC %md
 # MAGIC ## Label propagation
 # MAGIC Run static Label Propagation Algorithm for detecting communities in networks.
-# MAGIC 
+# MAGIC
 # MAGIC Each node in the network is initially assigned to its own community. At every superstep, nodes send their community affiliation to all neighbors and update their state to the most frequent community affiliation of incoming messages.
-# MAGIC 
+# MAGIC
 # MAGIC LPA is a standard community detection algorithm for graphs. It is very inexpensive computationally, although (1) convergence is not guaranteed and (2) one can end up with trivial solutions (all nodes are identified into a single community).
 
 # COMMAND ----------
