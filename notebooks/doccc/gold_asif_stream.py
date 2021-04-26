@@ -33,6 +33,37 @@ from pytz import timezone
 
 
 class GoldMockStream:
+    """
+    Class for generating mock gold table using asif updates from silver
+
+    Parameters
+    ----------
+    full_data : DataFrame
+        Data frame source to generate mock gold table. Typically a silver table.
+    first_bulk_size : int
+        How many data points should be used for initial mock table. Must
+        be less than or equal to size of source table.
+    validation_size : int
+        How many rows should be kept for validation and never appended to gold
+        training set
+    gold_path : str
+        Where to write gold mock data
+    validation_path : str
+        Where to write validation data
+    num_steps : int, optional
+        How many steps should be taken from the initial gold table
+        to the full dataset excluding validation data.
+        By default -1, meaning it is calculated using batch size.
+        Cannot be set when batch_size is set.
+        Must be set when batch_size is not set.
+    batch_size : int, optional
+        How many new rows should be appended to mock gold
+        for each step.
+        By default -1, meaning it is calculated using num_steps.
+        Cannot be set when num_steps is set.
+        Must be set when num_steps is not set.
+    """
+
     def __init__(
         self,
         full_data: DataFrame,
@@ -70,6 +101,12 @@ class GoldMockStream:
         self.init_gold(verbose=True)
 
     def order_random(self):
+        """Randomly splits data into validation, first bulk, and remaining data with groups
+
+        Returns
+        -------
+        DataFrames as tuple
+        """
         data_with_random_order = (
             self.full_data.orderBy(rand())
             .withColumn("sampled_order", monotonically_increasing_id())
@@ -97,6 +134,16 @@ class GoldMockStream:
         return first_bulk, validation, remaining
 
     def init_gold(self, verbose: bool = False):
+        """
+
+        Initialize gold table using batch of size first_bulk_size
+
+
+        Parameters
+        ----------
+        verbose : bool, optional
+            Verbose, by default False
+        """
         if verbose:
             print(
                 f"Saving first batch of data. Total number of rows. {self.first_bulk_size}"
@@ -104,6 +151,13 @@ class GoldMockStream:
         self.first_bulk.write.format("delta").mode("overwrite").save(self.gold_path)
 
     def save_validation(self, verbose: bool = False):
+        """Generate validation table
+
+        Parameters
+        ----------
+        verbose : bool, optional
+            Verbose write, by default False
+        """
         if verbose:
             print(
                 f"Saving validation data. Total number of rows. {self.validation_size}"
@@ -113,6 +167,13 @@ class GoldMockStream:
         )
 
     def gold_append(self, verbose: bool = False):
+        """Appends new batch of data to mock gold table
+
+        Parameters
+        ----------
+        verbose : bool, optional
+            Verbose appends, by default False
+        """
         step = self.step
         if step < self.num_steps:
 
@@ -141,6 +202,39 @@ class GoldMockStream:
 
 
 class GoldMockStreamAutoLinear(GoldMockStream):
+    """
+    Class for generating mock gold table using appends over a set
+    period of time
+
+
+    Parameters
+    ----------
+    duration_minutes : int
+        How long should the full procedure aim to use from the first batch
+        to the exhaustive write to mock gold, excluding validation data
+    full_data : DataFrame
+        Data frame source to generate mock gold table. Typically a silver table.
+    first_bulk_size : int
+        How many data points should be used for initial mock table. Must
+        be less than or equal to size of source table.
+    validation_size : int
+        How many rows should be kept for validation and never appended to gold
+        training set
+    gold_path : str
+        Where to write gold mock data
+    validation_path : str
+        Where to write validation data
+    batch_size : int, optional
+        How many new rows should be appended to mock gold
+        for each step. Larger number will provide speedup,
+        as random slicing is performed somewhat inefficiently
+
+    See also
+    ----------
+    GoldMockStream
+
+    """
+
     def __init__(
         self,
         duration_minutes: int,
@@ -162,6 +256,9 @@ class GoldMockStreamAutoLinear(GoldMockStream):
         self.wait_time = 0.9 * self.duration_seconds / self.num_steps
 
     def print_config(self):
+        """
+        Print configuration details for GoldMockStreamAutoLinear
+        """
         print(f"Duration seconds: {self.duration_seconds}")
         print(f"Number of steps: {self.num_steps}")
         print(f"Batch size: {self.batch_size}")

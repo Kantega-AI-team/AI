@@ -10,6 +10,7 @@ from sklearn.linear_model import LassoCV
 # COMMAND ----------
 
 silver_path = "/mnt/public/silver/doccc/doccc"
+description_path = "/mnt/public/silver/doccc/field_descriptions"
 gold_path = "/mnt/public/gold/doccc/mock_stream"
 validation_path = "/mnt/public/gold/doccc/mock_stream_validation"
 silver_data = spark.read.format("delta").load(silver_path)
@@ -33,7 +34,7 @@ with mlflow.start_run() as run:
 
     # Train a basic classifier - lasso regression using 5-fold cross validation
     # with iterative fitting along regularization path. Model selection
-    # is done by cross validation. Lasso provides a neat use case for 
+    # is done by cross validation. Lasso provides a neat use case for
     # showcasing model selection as coefficients will shrink to
     # exactly zero due to the L1 norm of the coefficient vector
     # used as (part) of the penalty score.
@@ -49,12 +50,12 @@ with mlflow.start_run() as run:
     # Plot chosen coefficients using seaborn and save using mlflow
     desc = (
         spark.read.format("delta")
-        .load("/mnt/public/silver/doccc/field_descriptions")
+        .load(description_path)
         .select([column for column in df.columns if column.startswith("X")])
         .collect()[0]
     )
     desc = [desc[i] for i in range(len(desc))]
-    a4_dims = (25, 4)
-    fig, ax = pyplot.subplots(figsize=a4_dims)
+    dims = (25, 4) # Figure dimension
+    fig, ax = plt.subplots(figsize=dims)
     barplot = sns.barplot(x=desc, y=reg.coef_, ax=ax)
     mlflow.log_figure(fig, "coef_plot.png")
