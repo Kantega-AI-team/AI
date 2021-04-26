@@ -1,16 +1,22 @@
 # Databricks notebook source
-"""Usage: 
-# COMMAND ----------
-%run '/notebooks/doccc/gold_asif_stream.py'
-# COMMAND ----------
-# Either
+"""
+Usage: 
+
+First run a cell with the files
+by: %run '/notebooks/doccc/gold_asif_stream.py'
+
+Then either
+
 GMSAL = GoldMockStreamAutoLinear(<kwargs>)
 GMSAL.start_auto()
-# or 
+
+or  
 GMS = GoldMockStream(<kwargs>)
-# And run manually for each step
+with manual runs for each step
 GMS.gold_append())
-# To clean up:
+
+fianlly, to clean up
+
 dbutils.fs.rm(<gold-path>, True)
 """
 

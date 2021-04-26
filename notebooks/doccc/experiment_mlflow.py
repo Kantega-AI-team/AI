@@ -1,6 +1,7 @@
 # Databricks notebook source
 import matplotlib.pyplot as plt
 import mlflow
+import seaborn as sns
 from sklearn.linear_model import LassoCV
 
 # COMMAND ----------
@@ -55,7 +56,7 @@ with mlflow.start_run() as run:
         .collect()[0]
     )
     desc = [desc[i] for i in range(len(desc))]
-    dims = (25, 4) # Figure dimension
+    dims = (25, 4)  # Figure dimension
     fig, ax = plt.subplots(figsize=dims)
     barplot = sns.barplot(x=desc, y=reg.coef_, ax=ax)
     mlflow.log_figure(fig, "coef_plot.png")
