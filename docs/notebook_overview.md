@@ -36,7 +36,7 @@ The relation can either be undirected, capturing symmetric relations between nod
 In the notebook tutorial below we provide show how to create and manipulate a graph object in Python by mean of the library _DGL_. Furthermore, we show how to append information to nodes and edges; these so called _features_ play a central role in the learning process typical of the machine learning models.
 
 [**Notebook - Introduction to Graph Structures**](/notebooks/
-graph_models/demo_graph_structure.py)
+fincen/graph_learning/demo_graph_structure.py)
 
 - Environment: Python, DGL
 - Dataset: FinCEN
@@ -83,7 +83,7 @@ Relevant application areas
 
 The notebook example below use Pytorch to predict the existence of edges in node pairs for the FinCEN Files dataset using Link prediction.
 
-[**Notebook - Link Prediction**](/notebooks/graph_models/demo_gnn_link_prediction.py)
+[**Notebook - Link Prediction**](/notebooks/fincen/graph_learning/demo_gnn_link_prediction.py)
 
 - Environment: Python
 - Dataset: [FinCEN Files](https://www.icij.org/investigations/fincen-files/explore-the-fincen-files-data/)
@@ -101,7 +101,7 @@ Relevant application areas
 
 The notebook example below use Apache Spark to represent the FinCen Files dataset as a GraphX graph. Then, the Pagerank algorithm is used to score the significance and importance of each node (bank), before a label propagation algorithm is used to detect communities of highly connected banks.
 
-[**Notebook - Community Detection**](/notebooks/graph_models/community_detection.py)
+[**Notebook - Community Detection**](/notebooks/fincen/graph_learning/community_detection.py)
 
 - Environment: PySpark
 - Dataset: [FinCEN Files](https://www.icij.org/investigations/fincen-files/explore-the-fincen-files-data/)
@@ -123,7 +123,7 @@ Relevant application areas
 
 In our notebook example, we use shiny apps to create an interactive visualization where users can explore historical earth quakes.
 
-[**Notebook - Shiny Apps**](/notebooks/shiny/shiny_example.r)
+[**Notebook - Shiny Apps**](/notebooks/earthquake/shiny/shiny_example.r)
 
 - Environment: R
 - Dataset: [Earth quake data](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/quakes.html)
@@ -147,7 +147,7 @@ Our notebook example shows how Active Learning allows you to train a high qualit
 Active learning is very suitable for environments where machines and human experts work together as a team. The machines will improve their capabilities quickly and, over time, also adapt and detect new data patterns.
 While they take care of the simpler cases, humans can spend their capacity on the challenging border cases where expert knowledge and wider experience are required.
 
-[**Notebook - Active Learning**](/notebooks/elliptic/active_learning_elliptic_shap.py)
+[**Notebook - Active Learning**](/notebooks/elliptic/active_learning/active_learning_elliptic_shap.py)
 
 - Environment: Python
 - Dataset: [Elliptic Dataset](https://www.kaggle.com/ellipticco/elliptic-data-set)
@@ -175,6 +175,7 @@ Over a series of notebooks, we show how you can construct a Delta Lake in practi
 - Dataset: Generated
 
 ### MLFlow
+
 ![ml architecture](/docs/images/MLflow-logoS.jpeg)
 
 MLflow is an open source platform for managing the end-to-end machine learning lifecycle. It has the following primary components:
