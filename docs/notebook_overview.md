@@ -83,7 +83,7 @@ Relevant application areas
 
 The notebook example below use Pytorch to predict the existence of edges in node pairs for the FinCEN Files dataset using Link prediction.
 
-[**Notebook - Link Prediction**](/notebooks/fincen/graph_learning/demo_gnn_link_prediction.py)
+[**Notebook - Link Prediction**](/notebooks/fincen/graph_learning/demo_link_prediction.py)
 
 - Environment: Python
 - Dataset: [FinCEN Files](https://www.icij.org/investigations/fincen-files/explore-the-fincen-files-data/)
