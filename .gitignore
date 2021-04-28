@@ -190,3 +190,4 @@ cython_debug/
 
 # File setting secretsy
 *secrets.sh
+*tmp*.py
