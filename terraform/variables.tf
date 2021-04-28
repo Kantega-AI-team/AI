@@ -34,3 +34,21 @@ variable "environment" {
   default     = "dev"
   description = "Name of environment. Example 'dev' or 'prod'"
 }
+
+variable "databricks_workspace_name" {
+  type        = string
+  default     = "dbw-ai-dev-we-001"
+  description = "Name of Databricks Workspace"
+}
+
+variable "databricks_cluster_name" {
+  type        = string
+  default     = "spark-ai-dev-we-001"
+  description = "Name of Databricks Cluster"
+}
+
+variable "databricks_cluster_node_type" {
+  type        = string
+  default     = "Standard_F4s_v2"
+  description = "Node type id"
+}

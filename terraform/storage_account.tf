@@ -1,17 +1,4 @@
-terraform {
-  required_providers {
-    azurerm = "2.56.0"
-  }
-  backend "azurerm" {
-    resource_group_name  = "rg-aitf-dev-we-001"
-    storage_account_name = "dlsaitfdevwe001"
-    container_name       = "tfstate"
-    key                  = "rg-ai-dev-we-001/dev.terraform.tfstate"
-  }
-}
-provider "azurerm" {
-  features {}
-}
+
 
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group
