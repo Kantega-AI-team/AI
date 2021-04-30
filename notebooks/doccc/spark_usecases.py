@@ -93,6 +93,7 @@ timed_cross_val_score(RandomForestClassifier(), X, y, cv=5, n_jobs=None)
 # With spark - scikit-learn already implements parallell backend appicable to Spark
 # Applied by setting n_jobs
 
+
 @timing
 def timed_cross_val_score(clf, X, y, cv, n_jobs):
     with mlflow.start_run() as run:

@@ -152,7 +152,7 @@ class GoldMockStream:
         """
         if verbose:
             print(
-                f"Saving first batch of data. Total number of rows. {self.first_bulk_size}"
+                f"Saving first batch of data. Total number of rows: {self.first_bulk_size}"
             )
         self.first_bulk.write.format("delta").mode("overwrite").save(self.gold_path)
 
@@ -248,6 +248,8 @@ class GoldMockStreamAutoLinear(GoldMockStream):
         first_bulk_size: int,
         validation_size: int,
         batch_size: int,
+        gold_path: str,
+        validation_path: str,
         verbose: bool = True,
     ):
         super().__init__(
@@ -255,6 +257,8 @@ class GoldMockStreamAutoLinear(GoldMockStream):
             first_bulk_size=first_bulk_size,
             validation_size=validation_size,
             batch_size=batch_size,
+            gold_path=gold_path,
+            validation_path=validation_path,
         )
         self.duration_minutes = duration_minutes
         self.duration_seconds = 60 * duration_minutes
