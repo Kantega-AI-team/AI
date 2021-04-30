@@ -34,16 +34,9 @@ from dgl.data import DGLDataset
 from dgl.data.utils import load_graphs
 from dgl.nn import SAGEConv
 from matplotlib import pyplot
-from sklearn.metrics import (
-    accuracy_score,
-    classification_report,
-    confusion_matrix,
-    f1_score,
-    precision_score,
-    recall_score,
-    roc_auc_score,
-    roc_curve,
-)
+from sklearn.metrics import (accuracy_score, classification_report,
+                             confusion_matrix, f1_score, precision_score,
+                             recall_score, roc_auc_score, roc_curve)
 
 # COMMAND ----------
 
@@ -514,6 +507,72 @@ pyplot.hist(score_test[len(pos_score) :], color="red")
 # axis labels
 pyplot.xlabel("predicted probability")
 pyplot.title("negative edges")
+
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC
+# MAGIC Store the results for later use (visualization link prediction).
+
+# COMMAND ----------
+
+# DataFrame with prediction for the positive test set
+
+src_pos = (
+    test_pos_fincen_graph.edges()[0].numpy().reshape(len(pos_score), 1)
+)  # src nodes in positive test set
+
+dst_pos = (
+    test_pos_fincen_graph.edges()[1].numpy().reshape(len(pos_score), 1)
+)  # dst nodes in positive test set
+
+label_pos = np.ones(len(pos_score)).reshape(
+    len(pos_score), 1
+)  # true label for the edges in the positive test set
+
+score_pos = score_test[: len(pos_score)].reshape(
+    len(pos_score), 1
+)  # predicted probabilitiy of connection for the edges in the positive test set
+
+
+result_pos = np.concatenate((src_pos, dst_pos, score_pos, label_pos), axis=1)
+
+result_pos = pd.DataFrame(data=result_pos, columns=["src", "dst", "score", "label"])
+
+
+# DataFrame with prediction for the negative test set
+
+src_neg = (
+    test_neg_fincen_graph.edges()[0].numpy().reshape(len(neg_score), 1)
+)  # src nodes in negative test set
+
+dst_neg = (
+    test_neg_fincen_graph.edges()[1].numpy().reshape(len(neg_score), 1)
+)  # dst nodes in negative test set
+
+label_neg = np.zeros(len(neg_score)).reshape(
+    len(neg_score), 1
+)  # true label for the edges in the negative test set
+
+score_neg = score_test[len(neg_score) :].reshape(
+    len(neg_score), 1
+)  # predicted probabilitiy of connection for the edges in the negative test set
+
+
+result_neg = np.concatenate((src_neg, dst_neg, score_neg, label_neg), axis=1)
+
+result_neg = pd.DataFrame(data=result_neg, columns=["src", "dst", "score", "label"])
+
+# combine the 2 datasets
+results_data = result_pos.append(result_neg, ignore_index=True)
+
+
+# store results
+
+results_data.to_csv(
+    "/dbfs/mnt/public/clean/fincen-graph/results_link_prediction.csv", index=False
+)
 
 
 # COMMAND ----------
