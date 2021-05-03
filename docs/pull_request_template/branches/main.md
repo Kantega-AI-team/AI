@@ -15,6 +15,6 @@
 - [ ] Infrastructure files is formatted and validated
 - [ ] Pipeline runs without errors
 
-### Demos details (if applicable)
+### Main Checklist (reqired)
 
-**Main audience:** <!--- Describe which audience the demo is intended for -->
+- [ ] The repository code is ready for publication
