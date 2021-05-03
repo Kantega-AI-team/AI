@@ -81,14 +81,14 @@ server <- shinyServer(function(input, output, session) {
 
   observeEvent(input$button1,
                isolate({
-                 but1$but1 = TRUE
-                 but2$but2 = FALSE
+                 but1$but1 <- TRUE
+                 but2$but2 <- FALSE
                }))
 
   observeEvent(input$button2,
                isolate({
-                 but1$but1 = FALSE
-                 but2$but2 = TRUE
+                 but1$but1 <- FALSE
+                 but2$but2 <- TRUE
                }))
 
 ## Output for main panel -----------------------------
