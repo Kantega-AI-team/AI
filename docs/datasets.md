@@ -121,7 +121,6 @@ t of transactions with same originator and beneficiary) took place
 
 Datasettene ligger tilgjengelig i data lake under ```public/clean/fincen```
 
-
 ## Taiwanese default dataset
 
 Også referert til som *doccc* - default of credit card clients.

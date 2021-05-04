@@ -188,6 +188,8 @@ cython_debug/
 .terraform/
 .terraform.lock.hcl
 
-# File setting secretsy
+# File setting secrets
 *secrets.sh
+
+# Temporary python files
 *tmp*.py

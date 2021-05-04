@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "kantegaamlai"
+name = "kantegaaiteam"
 version = "0.1.0"
-description = "Shared code for Kantega AML AI Project"
-authors = ["Kantega AML AI Team"]
+description = "Shared code for Kantega AI Team"
+authors = ["Kantega AI Team"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
