@@ -53,22 +53,25 @@ Relevant application areas
 [**Notebook - Introduction to GraphSAGE**](/docs/theory_docs/graphsage_theory.md)
 
 #### Node classification / regression
-
-<!--TODO: Short description and motivation-->
-
-tekst
+Node classification with GNN (GraphSAGE) is a way to predict the category of a node in a graph. One of the most popular and widely adopted tasks on graph data is node classification, where a model needs to predict the ground truth category of each node. Before graph neural networks, many proposed methods are using either connectivity alone (such as DeepWalk or node2vec), or simple combinations of connectivity and the node’s own features. GNNs, by contrast, offers an opportunity to obtain node representations by combining the connectivity and features of a local neighborhood.
+With the help of only a small portion of labeled nodes, a graph neural network (GNN) can with a good enough accuracy predict the node category of the others.
 
 Relevant application areas
 
 - **Examples**: Fraud and churn prediction
-<!-- TODO: Do we have some good examples of node classification examples? -->
 
 ![Node Classification](images/node_classification.png)
 
-<TODO: Notebook>
+The notebook below does the following:
+
+* Load a DGL-provided dataset.
+* Build a GNN model with DGL-provided neural network modules.
+* Train and evaluate a GNN model for node classification on CPU.
+
+[**Notebook - Node Classification**](/notebooks/fincen/graph_learning/demo_node_classification.py)
 
 - Environment: Python, DGL
-- Dataset: ?
+- Dataset: FinCen
   
 #### Link Prediction
 
