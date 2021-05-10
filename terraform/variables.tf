@@ -52,3 +52,15 @@ variable "databricks_cluster_node_type" {
   default     = "Standard_F4s_v2"
   description = "Node type id"
 }
+
+variable "databricks_storage_container" {
+  type        = string
+  default     = "public"
+  description = "Storage container name"
+}
+
+variable "adapp_name" {
+  type        = string
+  default     = "ad-ai-dev-we-001"
+  description = "App name for AD used in mount"
+}

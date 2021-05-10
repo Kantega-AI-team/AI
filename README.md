@@ -13,6 +13,8 @@ It consists of the following components
 
 You find an overview and introduction to all the [notebook examples here](/docs/notebook_overview.md)
 
+The notebooks in this repository is published in the Databricks workspace, under "shared/demo".
+
 ## Azure infrastructure
 
 All infrastructure is defined  as code. We only deploy in dev. Main is solely used for publishing work, and the code does not run on separate instances for separate environments. See the [infrastructure files](terraform) for details.

@@ -10,7 +10,6 @@ resource "azurerm_databricks_workspace" "dbw" {
 }
 
 output "databricks_host" {
-
   value = "https://${azurerm_databricks_workspace.dbw.workspace_url}/"
 }
 

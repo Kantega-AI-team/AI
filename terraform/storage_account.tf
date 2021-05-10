@@ -1,5 +1,3 @@
-
-
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group
   location = var.region
@@ -17,3 +15,10 @@ resource "azurerm_storage_account" "dls" {
     environment = var.environment
   }
 }
+
+resource "azurerm_storage_container" "st" {
+  name                  = var.databricks_storage_container
+  storage_account_name  = azurerm_storage_account.dls.name
+  container_access_type = "private"
+}
+
