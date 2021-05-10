@@ -56,6 +56,7 @@ steps:
     provider: 'azurerm'
     command: 'init'
     workingDirectory: 'terraform'
+    commandOptions: '-var-file="dev.tfvars"'
     backendServiceArm: 'Subscription level service connection'
     backendAzureRmResourceGroupName: 'rg-aitf-dev-we-001'
     backendAzureRmStorageAccountName: 'dlsaitfdevwe001'

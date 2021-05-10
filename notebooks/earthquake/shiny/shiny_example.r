@@ -27,7 +27,7 @@ library(ggplot2)
 ## Adding data to a dataframe -----------------------------
 df <- as_tibble(quakes)
 
-## Adding extra varaibles -----------------------------
+## Adding extra variables -----------------------------
 df <- df %>%
       rowid_to_column("id") %>%
       add_column(time = as.Date("2010-01-01")
@@ -144,5 +144,5 @@ shinyApp(ui, server)
 
 # COMMAND ----------
 
-## Avslutter appen
+## Closing app
 # %sh kill 3436

@@ -1,6 +1,6 @@
 # Databricks notebook source
 # MAGIC %md #Adding up with more complexity in shiny <br/>
-# MAGIC This time we will use two set of filters to create a subset and
+# MAGIC This time we will use two sets of filters to create a subset and
 # MAGIC action buttons to preform different tasks on the subset
 
 # COMMAND ----------
