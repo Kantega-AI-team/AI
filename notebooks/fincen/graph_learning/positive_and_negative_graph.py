@@ -162,8 +162,8 @@ test_neg_fincen_graph = dgl.graph(
 # MAGIC
 # MAGIC The process performed so fare give us 5 subgraphs:
 # MAGIC
-# MAGIC - _train_fincen_graph
-# MAGIC - _train_pos_fincen_graph
+# MAGIC - train_fincen_graph
+# MAGIC - train_pos_fincen_graph
 # MAGIC - train_neg_fincen_graph
 # MAGIC - test_pos_fincen_graph
 # MAGIC - test_neg_fincen_graph
@@ -174,7 +174,9 @@ test_neg_fincen_graph = dgl.graph(
 
 ### Save the graphs
 
-# save_graphs("/dbfs/mnt/public/clean/fincen-graph/train_fincen_graph", train_fincen_graph)
+save_graphs(
+    "/dbfs/mnt/public/clean/fincen-graph/train_fincen_graph", train_fincen_graph
+)
 
 save_graphs(
     "/dbfs/mnt/public/clean/fincen-graph/train_pos_fincen_graph", train_pos_fincen_graph

@@ -34,16 +34,9 @@ from dgl.data import DGLDataset
 from dgl.data.utils import load_graphs
 from dgl.nn import SAGEConv
 from matplotlib import pyplot
-from sklearn.metrics import (
-    accuracy_score,
-    classification_report,
-    confusion_matrix,
-    f1_score,
-    precision_score,
-    recall_score,
-    roc_auc_score,
-    roc_curve,
-)
+from sklearn.metrics import (accuracy_score, classification_report,
+                             confusion_matrix, f1_score, precision_score,
+                             recall_score, roc_auc_score, roc_curve)
 
 # COMMAND ----------
 
