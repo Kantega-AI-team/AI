@@ -12,7 +12,7 @@
 
 ### Infrastructure checklist (if applicable)
 
-- [ ] Infrastructure files is formatted and validated
+- [ ] Infrastructure files are formatted and validated
 - [ ] Pipeline runs without errors
 
 ### Demos details (if applicable)

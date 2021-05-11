@@ -8,6 +8,11 @@ The current source code is written in Python and R, and we use [Poetry](https://
 1. Install poetry and pyenv globally
    - Run `brew install poetry`
    - Run `brew install pyenv`
+
+### Setup Poetry env for python (linux - ubuntu)
+   - Run `pip install poetry`
+   - Run `sudo apt install python3-venv`
+
 2. Open the repository in VS code. Run the following in terminal
 3. Create virtual environment, python3 -m venv .venv.
    - Run `pyenv install 3.9.1` in terminal
