@@ -4,7 +4,7 @@ data "databricks_spark_version" "latest" {
 }
 
 resource "databricks_cluster" "dbwc" {
-  cluster_name            = var.databricks_cluster_name
+  cluster_name            = "${var.cluster_prefix}-${var.environment}-${var.standard_suffix}"
   spark_version           = data.databricks_spark_version.latest.id
   node_type_id            = var.databricks_cluster_node_type
   autotermination_minutes = 20

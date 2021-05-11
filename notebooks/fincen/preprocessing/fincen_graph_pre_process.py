@@ -14,8 +14,7 @@ from pyspark.ml.functions import vector_to_array
 from pyspark.ml.linalg import DenseVector, SparseVector, Vectors
 from pyspark.sql import functions as F
 from pyspark.sql import types as T
-from pyspark.sql.functions import (col, concat, lit,
-                                   monotonically_increasing_id, when)
+from pyspark.sql.functions import col, concat, lit, monotonically_increasing_id, when
 
 # COMMAND ----------
 

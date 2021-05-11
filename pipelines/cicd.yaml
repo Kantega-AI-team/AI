@@ -1,72 +1,58 @@
 trigger:
 - develop
+- main
 
-pool:
-  vmImage: ubuntu-latest
+variables:
+  isDevelop: $[eq(variables['Build.SourceBranch'], 'refs/heads/develop')]
+  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
 
-steps:
-- script: |
-    git ls-files "notebooks/*" | xargs -I '{}' cp --parents -r '{}' $(Build.BinariesDirectory)
-  displayName: 'Get all notebooks'
+stages:
+- stage: develop
+  displayName: Develop
+  condition: eq(variables.isDevelop, true)
 
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(Build.BinariesDirectory)'
-    includeRootFolder: false
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
+  jobs:
+  - job: terraform
+    displayName: Terraform install and apply
+    pool:
+      vmImage: ubuntu-latest
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    ArtifactName: 'DatabricksBuild'
+    steps:
+    - task: TerraformInstaller@0
+      displayName: Install Terraform
+      inputs:
+        terraformVersion: '0.14.8'
 
-- script: pip install databricks-cli
-  displayName: 'Install databricks-cli'
+    - task: TerraformTaskV1@0
+      displayName: Terraform init
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: 'terraform'
+        backendServiceArm: 'Subscription level service connection'
+        backendAzureRmResourceGroupName: 'rg-aitf-dev-we-001'
+        backendAzureRmStorageAccountName: 'dlsaitfdevwe001'
+        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'rg-ai-dev-we-001/dev.terraform.tfstate'
 
-- task: PythonScript@0
-  inputs:
-    scriptSource: 'inline'
-    script: |
-      import databricks_cli
-      import argparse
-      from databricks_cli.sdk import ApiClient
-      from databricks_cli.workspace.api import WorkspaceApi
+    - task: TerraformTaskV1@0
+      displayName: Terraform validate and apply
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: 'terraform'
+        commandOptions: '-var-file dev.tfvars'
+        environmentServiceNameAzureRM: 'Subscription level service connection'
 
-      parser = argparse.ArgumentParser()
-      parser.add_argument("--host", type=str)
-      parser.add_argument("--token", type=str)
-      args = parser.parse_args()
+- stage: publish_repository
+  displayName: Publish repository code (TODO)
+  condition: eq(variables.isMain, true)
 
-      client = ApiClient(host=args.host, token=args.token)
-      workspace = WorkspaceApi(client)
-      workspace.import_workspace_dir(
-          source_path="notebooks", target_path="/", overwrite=True, exclude_hidden_files=True
-      )
-    arguments: --host $(HOST) --token $(TOKEN)
+  jobs:
+  - job: publish
+    displayName: Publish main branch
+    pool:
+      vmImage: ubuntu-latest
 
-- task: TerraformInstaller@0
-  displayName: Install Terraform
-  inputs:
-    terraformVersion: '0.14.8'
-
-- task: TerraformTaskV1@0
-  displayName: Terraform init
-  inputs:
-    provider: 'azurerm'
-    command: 'init'
-    workingDirectory: 'terraform'
-    commandOptions: '-var-file="dev.tfvars"'
-    backendServiceArm: 'Subscription level service connection'
-    backendAzureRmResourceGroupName: 'rg-aitf-dev-we-001'
-    backendAzureRmStorageAccountName: 'dlsaitfdevwe001'
-    backendAzureRmContainerName: 'tfstate'
-    backendAzureRmKey: 'rg-ai-dev-we-001/dev.terraform.tfstate'
-
-- task: TerraformTaskV1@0
-  displayName: Terraform validate and apply
-  inputs:
-    provider: 'azurerm'
-    command: 'apply'
-    workingDirectory: 'terraform'
-    environmentServiceNameAzureRM: 'Subscription level service connection'
+    steps:
+    - script: echo 'Publish repository code (TODO)'

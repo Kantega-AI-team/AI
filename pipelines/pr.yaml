@@ -1,5 +1,6 @@
 trigger:
   - develop
+  - main
 
 jobs:
   - job: lint_tests

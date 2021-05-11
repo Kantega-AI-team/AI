@@ -1,8 +1,8 @@
 resource "azurerm_databricks_workspace" "dbw" {
-  name                = var.databricks_workspace_name
+  name                = "${var.workspace_prefix}-${var.environment}-${var.standard_suffix}"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  sku                 = "standard"
+  sku                 = "premium"
 
   tags = {
     Environment = var.environment

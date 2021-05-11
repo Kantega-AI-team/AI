@@ -1,10 +1,10 @@
 resource "azurerm_resource_group" "rg" {
-  name     = var.resource_group
+  name     = "${var.rg_prefix}-${var.environment}-${var.standard_suffix}"
   location = var.region
 }
 
 resource "azurerm_storage_account" "dls" {
-  name                     = var.datalake_storage_account_name
+  name                     = "${var.dls_prefix}${var.environment}${var.dls_suffix}"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"

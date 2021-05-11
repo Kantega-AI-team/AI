@@ -1,7 +1,7 @@
 # Create azure ad app
 
 resource "azuread_application" "dbw" {
-  display_name = var.adapp_name
+  display_name = "${var.adapp_prefix}-${var.environment}-${var.standard_suffix}"
   required_resource_access {
     resource_app_id = "e406a681-f3d4-42a8-90b6-c2b029497af1"
     resource_access {
