@@ -155,112 +155,12 @@ class GetModelByNestedCv:
 # COMMAND ----------
 
 # MAGIC  %md ### Train using defined regime and log training using Mlflow (skipped)
-# MAGIC
-# MAGIC  We go trhrough the code on how to log a run using our training regime. We will reuse most of the code in a retrain/score setting below.
-
-# COMMAND ----------
-
-# Run mlflow experiment and register best model on the fly
-"""
-# Setup mock stream. By only initializing the class, we write only first_bulk_size data
-GMSAL = GoldMockStreamAutoLinear(
-    duration_minutes=60,
-    full_data=spark.read.format("delta").load(silver_path),
-    first_bulk_size=500,
-    validation_size=5000,
-    gold_path=gold_path,
-    batch_size=500,
-    validation_path=gold_path_validation,
-)
-GMSAL.print_config()
-
-
-with mlflow.start_run() as run:
-    mlflow.sklearn.autolog(disable=True)
-
-    df = spark.read.format("delta").load(gold_path)
-    pdf = df.toPandas()
-    X = pdf.drop(["ID", "Y"], axis=1)
-    y = pdf["Y"]
-
-    # Define options
-    classifiers = {
-        "RandomForest": {
-            "clf": RandomForestClassifier(),
-            "param_grid": {
-                "max_depth": [2, 5, 10, 15, None],
-                "criterion": ["gini", "entropy"],
-            },
-        },
-        "AdaBoost": {
-            "clf": AdaBoostClassifier(),
-            "param_grid": {"n_estimators": [5, 20, 50]},
-        },
-        "SupportVectorMachine": {
-            "clf": SVC(kernel="rbf"),
-            "param_grid": {"C": [1, 10, 100], "gamma": [0.01, 0.1]},
-        },
-        "Dummy": {
-            "clf": DummyClassifier(),
-            "param_grid": {"strategy": ["most_frequent", "uniform"]},
-        },
-    }
-
-    metric = "f1"
-
-    # Get data
-    df = spark.read.format("delta").load(gold_path)
-    pdf = df.toPandas()
-    X = pdf.drop(["ID", "Y"], axis=1)
-    y = pdf["Y"]
-
-    # Select model/param option
-    ModelGetter = GetModelByNestedCv(
-        options=classifiers, k_inner=4, k_outer=6, X=X, y=y, metric=metric
-    )
-    ModelGetter.select_option_by_nested_cv()
-
-    # Train model
-    final_model = ModelGetter.train_based_on_selection()
-
-    # Log selections
-    mlflow.log_metric(
-        f"Generalized CV {metric} error", ModelGetter.get_generalized_cv_score()
-    )
-
-    mlflow.log_param("Model class", str(final_model.estimator))
-    final_params = final_model.best_estimator_.get_params()
-    for param in final_params:
-        mlflow.log_param(param, final_params[param])
-
-    # Log model
-    artifact_path = "model"
-    mlflow.sklearn.log_model(final_model.best_estimator_, artifact_path)
-
-    # Run details
-    run_id = run.info.run_uuid
-    run_uri = run.info.artifact_uri
-    experiment_id = run.info.experiment_id
-    print(f"Run id: {run_id}, Run uri: {run_uri}, Experiment ID: {experiment_id}")
-
-    # Register model
-    location = f"runs:/{run_id}/{artifact_path}"
-    model_details = mlflow.register_model(location, model_name)
-
-    # Add description
-    version_desc = f"{str(final_model.estimator)} model, as selected by nested cross validation. See source run for details."
-    client.update_model_version(
-        name=model_name,
-        version=int(model_details.version),
-        description=version_desc,
-    )
-"""
 
 # COMMAND ----------
 
 # MAGIC %md ### Newly arriving data: Stream, score and retrain
 # MAGIC
-# MAGIC Now, lets assume we regularly receive new data. We want to score this new data and evaluate the performance, and also retrain our model using our enlarged training set. In a real world setting we may not retrain as much as we evaluate.
+# MAGIC Lets assume we regularly receive new data. We want to score this new data and evaluate the performance, and also retrain our model using our enlarged training set. In a real world setting we may not retrain as much as we evaluate.
 
 # COMMAND ----------
 

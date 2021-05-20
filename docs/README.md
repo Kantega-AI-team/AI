@@ -13,4 +13,3 @@ Documentation for all code and data in AI AML
 - [Setting up a local development environment](local_development_environment.md)
 - [Initial setup of Databricks Repos](initial_setup_dbw_repos.md)
 - [Git workflow for Databricks notebooks](databricks_git_workflow.md)
-- [Cloud architecture description](ml_architecture.md)
