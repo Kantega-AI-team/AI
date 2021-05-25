@@ -2,9 +2,9 @@
 # MAGIC %md
 # MAGIC # Demo Graph structure
 # MAGIC
-# MAGIC In this demo we introduce briefly the graph object. The goal is to provide the fundamental notions and computational skills to create a graph and its features. Knowledge about graphs is preparatory for the study Graph Neural Network model. During the demo we will continuosly switch between text and  Python code, trying to make the reading as smooth as possible. Sometimes, when necessary, comments will be added directly to the code; read them, they might turn out to be useful. Most of the commands for perfotming graph manipulation come from the Python *dgl* libray (https://www.dgl.ai)
+# MAGIC In this demo we introduce briefly the graph object. The goal is to provide the fundamental notions and computational skills to create a graph and its features. Knowledge about graphs is preparatory for the study Graph Neural Network model. During the demo we will continuously switch between text and  Python code, trying to make the reading as smooth as possible. Sometimes, when necessary, comments will be added directly to the code; read them, they might turn out to be useful. Most of the commands for perfotming graph manipulation come from the Python *dgl* libray (https://www.dgl.ai)
 # MAGIC
-# MAGIC The following aspects will be covered in this demo/intro:
+# MAGIC The following aspects will be covered in this demo:
 # MAGIC
 # MAGIC - Basic definition of a Graph
 # MAGIC - Nodes and edges of a graph
@@ -12,7 +12,7 @@
 # MAGIC - From directed to undirected Graph
 # MAGIC - Specify number of nodes
 # MAGIC - Add edges after the creation of a graph
-# MAGIC - Node and edge Features
+# MAGIC - Node and edge features
 # MAGIC - The FINCen dataset
 
 # COMMAND ----------
@@ -20,7 +20,7 @@
 # MAGIC %md
 # MAGIC ## Basic Definition of a Graph
 # MAGIC
-# MAGIC A graph 𝐺=(𝑉,𝐸) is a structure used to represent entities and their relations. It consists of two sets – the set of nodes 𝑉 (also called vertices) and the set of edges 𝐸 (also called arcs). An edge (𝑢,𝑣) ∈ 𝐸  connecting a pair of nodes 𝑢 and 𝑣 indicates that there is a relation between them. The relation can either be undirected, e.g., capturing symmetric relations between nodes, or directed, capturing asymmetric relations. For example, if a graph is used to model the friendship status of people in a social network, then the edges will be undirected as friendship is mutual; however, if the graph is used to model how people follow each other on Twitter, then the edges are directed. Depending on the edges’ directionality, a graph can be directed or undirected.
+# MAGIC A graph 𝐺=(𝑉,𝐸) is a structure used to represent entities and their relations. It consists of two sets – the set of nodes 𝑉 (also called vertices) and the set of edges 𝐸 (also called arcs). An edge (𝑢,𝑣) ∈ 𝐸  connecting a pair of nodes 𝑢 and 𝑣 indicates that there is a relation between them. The edges can either be undirected, e.g., capturing symmetric relations between nodes, or directed, capturing asymmetric relations. For example, if a graph is used to model the friendship status of people in a social network, then the edges will be undirected as friendship is mutual; however, if the graph is used to model how people follow each other on Twitter, then the edges are directed. Depending on the edges’ directionality, a graph can be directed or undirected.
 
 # COMMAND ----------
 
@@ -76,8 +76,8 @@ len(dgl_graph.nodes())
 
 def plot_the_graph(dgl_graph):
 
-    nx_dgl_graph = dgl_graph.to_networkx()  # conver from dgl to networkx
-    pos = nx.kamada_kawai_layout(nx_dgl_graph)  # choose a the layout
+    nx_dgl_graph = dgl_graph.to_networkx()  # convert from dgl to networkx
+    pos = nx.kamada_kawai_layout(nx_dgl_graph)  # choose the layout
     nx.draw(nx_dgl_graph, pos, with_labels=True)  # draw the graph
 
 
@@ -105,7 +105,7 @@ plot_the_graph(dgl_graph)
 # make dgl_graph undirected
 dgl_graph_un = dgl.to_bidirected(dgl_graph)
 
-len(dgl_graph_un.edges()[1])  # more edges than before!
+len(dgl_graph_un.edges()[1])
 
 # dgl_graph_un.nodes()  #same nodes than before
 
@@ -209,7 +209,7 @@ dgl_graph
 # MAGIC ## The FINCen dataset
 # MAGIC
 # MAGIC We now  create a graph object from a real dataset. The FINCen dataset contains monetary transactions from all over the world. The entities are the banks while the edges imply money transfers. As node feature we have the country where the bank was located. There are 2 features associated with the edge:
-# MAGIC 1.  Amount of the transaction
+# MAGIC 1. Amount of the transaction
 # MAGIC 2. Number of sub-transactions
 
 # COMMAND ----------
