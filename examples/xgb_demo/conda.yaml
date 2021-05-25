@@ -1,0 +1,11 @@
+name: XGB-classifier-elliptic-demo 
+channels:
+  - defaults
+dependencies:
+  - pandas=1.1.0
+  - scikit-learn=0.23.2
+  - pip
+  - pip:
+    - mlflow
+    - xgboost
+    - delta-lake-reader[azure]

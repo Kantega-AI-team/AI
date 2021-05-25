@@ -1,0 +1,10 @@
+name: XGB-classifier-elliptic demo 
+
+conda_env: conda.yaml
+
+entry_points:
+  main:
+    parameters:
+      data_path: {type: str, default: "/mnt/public/clean/elliptic"}
+      max_depth: {type: int, default: 6}
+    command: "python train.py --data_path {data_path} --max_depth {max_depth}"

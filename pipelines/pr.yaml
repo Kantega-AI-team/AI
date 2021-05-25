@@ -1,0 +1,14 @@
+trigger:
+  - develop
+  - main
+
+jobs:
+  - job: lint_tests
+    displayName: Run R, Python and Markdown Linters
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - script: |
+        docker pull nvuillam/mega-linter:v4
+        docker run -v $(System.DefaultWorkingDirectory):/tmp/lint nvuillam/mega-linter     
+      displayName: 'Run linters on entire repo using GitHub Mega Linter'

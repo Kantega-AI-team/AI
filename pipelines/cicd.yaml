@@ -1,0 +1,58 @@
+trigger:
+- develop
+- main
+
+variables:
+  isDevelop: $[eq(variables['Build.SourceBranch'], 'refs/heads/develop')]
+  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
+
+stages:
+- stage: develop
+  displayName: Develop
+  condition: eq(variables.isDevelop, true)
+
+  jobs:
+  - job: terraform
+    displayName: Terraform install and apply
+    pool:
+      vmImage: ubuntu-latest
+
+    steps:
+    - task: TerraformInstaller@0
+      displayName: Install Terraform
+      inputs:
+        terraformVersion: '0.14.8'
+
+    - task: TerraformTaskV1@0
+      displayName: Terraform init
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: 'terraform'
+        backendServiceArm: 'Subscription level service connection'
+        backendAzureRmResourceGroupName: 'rg-aitf-dev-we-001'
+        backendAzureRmStorageAccountName: 'dlsaitfdevwe001'
+        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'rg-ai-dev-we-001/dev.terraform.tfstate'
+
+    - task: TerraformTaskV1@0
+      displayName: Terraform validate and apply
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: 'terraform'
+        commandOptions: '-var-file dev.tfvars'
+        environmentServiceNameAzureRM: 'Subscription level service connection'
+
+- stage: publish_repository
+  displayName: Publish repository code (TODO)
+  condition: eq(variables.isMain, true)
+
+  jobs:
+  - job: publish
+    displayName: Publish main branch
+    pool:
+      vmImage: ubuntu-latest
+
+    steps:
+    - script: echo 'Publish repository code (TODO)'
