@@ -55,4 +55,11 @@ stages:
       vmImage: ubuntu-latest
 
     steps:
-    - script: echo 'Publish repository code (TODO)'
+    - bash: |
+        git checkout main
+        git remote set-url origin https://$GITHUB_TOKEN@github.com/Kantega-AI-team/AI
+        git branch -M main
+        git push -u origin main
+      displayName: 'Copy main to Github'
+      env:
+        GITHUB_TOKEN: $(GITHUB_TOKEN)
