@@ -18,17 +18,10 @@ resource "azuread_application" "dbw" {
   }
 }
 
-# Generate password
-resource "random_password" "password" {
-  length  = 64
-  special = false
-}
-
-# Set generated password as app password
+# Set generated password as app password. Password is auto-generated
 resource "azuread_application_password" "password" {
   end_date              = "2023-12-30T23:00:00Z"
   application_object_id = azuread_application.dbw.object_id
-  value                 = random_password.password.result
 }
 
 # Create service principal
@@ -51,7 +44,7 @@ resource "databricks_secret_scope" "terraform" {
 # Put service principal secret in secret scope
 resource "databricks_secret" "service_principal_key" {
   key          = "secret"
-  string_value = random_password.password.result
+  string_value = azuread_application_password.password.value
   scope        = databricks_secret_scope.terraform.name
 }
 # Get current config
@@ -68,6 +61,7 @@ resource "databricks_azure_adls_gen2_mount" "public" {
   client_secret_scope    = databricks_secret_scope.terraform.name
   client_secret_key      = databricks_secret.service_principal_key.key
   initialize_file_system = true
+  cluster_id             = databricks_cluster.dbwc.cluster_id
 }
 output "application_id" {
   value = azuread_application.dbw.application_id
