@@ -4,6 +4,7 @@
 - Elliptic Dataset
 - FinCEN Dataset
 - Taiwanese Default Dataset
+- country-codes Dataset
 
 ## Elliptic Dataset
 
@@ -77,3 +78,26 @@ The dataset contains 30 000 observations.
 In our flow, the dataset from the [source](https://archive.ics.uci.edu/ml/machine-learning-databases/00350/) is parsed to bronze, and casted as correct types and split into to tables consisting of the dataset itself and a description table in silver.
 
 The silver datasets are available at ```public/silver/doccc```
+
+## Country-codes dataset
+
+This dataset contains international nomennclature, iso codes and geographic coordinates all countries of the world. It is used for the creation of a shiny app displaying the suspicious transactions between banks across the glob through a GNN model.
+
+Features:
+
+- **OFFICIAL LANG CODE:** Official language code (EN, FR, SP, ...)
+- **ISO2 CODE**
+- **ISO3 CODE**
+- **ONU CODE**
+- **IS ILOMEMBER:** binay (Y/N)
+- **IS RECEIVING QUEST:** binay (Y/N)
+- **LABEL EN** english name
+- **LABEL FR** Franch name
+- **LABEL SP** Spanish name
+- **Geo Shape** Multipolygon coordinates
+- **geo_point_2d** Capital coordinates (long, lat)
+
+![image.png](/docs/images/countries_code1.png)
+![image.png](/docs/images/countries_code2.png)
+
+ The data set is available at ```public/tools```
