@@ -18,6 +18,7 @@ Overview:
   - [Data and Machine Learning Platform](#data-and-machine-learning-platform)
     - [Delta Lake](#delta-lake)
     - [MLFlow](#mlflow)
+    - [PyCaret](#pycaret)
 
 ## Graph Learning
 
@@ -53,6 +54,7 @@ Relevant application areas
 [**Notebook - Introduction to GraphSAGE**](/docs/theory_docs/graphsage_theory.md)
 
 #### Node classification / regression
+
 Node classification with GNN (GraphSAGE) is a way to predict the category of a node in a graph. One of the most popular and widely adopted tasks on graph data is node classification, where a model needs to predict the ground truth category of each node. Before graph neural networks, many proposed methods are using either connectivity alone (such as DeepWalk or node2vec), or simple combinations of connectivity and the node’s own features. GNNs, by contrast, offers an opportunity to obtain node representations by combining the connectivity and features of a local neighborhood.
 With the help of only a small portion of labeled nodes, a graph neural network (GNN) can with a good enough accuracy predict the node category of the others.
 
@@ -64,9 +66,9 @@ Relevant application areas
 
 The notebook below does the following:
 
-* Load a DGL-provided dataset.
-* Build a GNN model with DGL-provided neural network modules.
-* Train and evaluate a GNN model for node classification on CPU.
+- Load a DGL-provided dataset.
+- Build a GNN model with DGL-provided neural network modules.
+- Train and evaluate a GNN model for node classification on CPU.
 
 [**Notebook - Node Classification**](/notebooks/fincen/graph_learning/demo_node_classification.py)
 
@@ -201,3 +203,14 @@ for serving a model using a REST API.
 
 - Environment: MLFlow, PySpark
 - Dataset: Elliptic
+
+### PyCaret
+
+PyCaret is an open source, low-code machine learning library in Python that allows you to go from preparing your data to deploying your model. PyCaret interacts nicely with Mlflow, but there is no good interface for Spark Dataframes. As such, there is a scaling issue, but for many ML use cases PyCaret could serve as a great starting point. PyCaret is a huge time saver, in particual for preprocessing, but one should be aware that the default behaviour might be suitable for all datasets.
+
+We have done some experimenting to assess the benefits and showcase the Mlflow work behind the scenes. We chose our "worst" dataset, since this requires missing value handling, encoding and handling of unknown labels. PyCaret handles this easily, though perhaps not optimally.
+
+[**Notebook - PyCaret**](/notebooks/ieee_fraud/pycaret_experimentation.py)
+
+- Environment: MLFlow, PySpark
+- Dataset: IEEE Fraud

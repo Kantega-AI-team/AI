@@ -1,8 +1,8 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC 
+# MAGIC
 # MAGIC # Silver
-# MAGIC 
+# MAGIC
 # MAGIC - Timestamps (longform)
 # MAGIC - Arrays
 # MAGIC - Join
