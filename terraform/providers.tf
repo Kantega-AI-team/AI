@@ -3,7 +3,7 @@ terraform {
     azurerm = "2.56.0"
     databricks = {
       source  = "databrickslabs/databricks"
-      version = "0.3.3"
+      version = "0.3.5"
     }
   }
   backend "azurerm" {
